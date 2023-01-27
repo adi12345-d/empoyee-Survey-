@@ -1,0 +1,30 @@
+type MessageThread {
+	threadId: ID!
+	sentTo: Employee
+	tags: [Tag]
+	subject: String
+	createdAt: String
+	modifiedAt: String
+	latestText: String
+	createdBy: Employee
+	messages: [Message]
+	readByManagers: [Long]
+	readByEmployee: [Long]
+}
+
+input ThreadInput {
+	sentTo: Long!
+	subject: String! 
+	text: String! 
+	employeeId: Long! 
+}
+
+extend type Mutation {	
+	newThread(input: ThreadInput) : MessageThread!	
+	readMessageThread(threadId: Long!, employeeId: Long!) : MessageThread!
+}
+
+extend type Query {
+	findAllSentThreads(employeeId: ID!): [MessageThread]!
+	findAllReceivedThreads(employeeId: ID!): [MessageThread]!
+}

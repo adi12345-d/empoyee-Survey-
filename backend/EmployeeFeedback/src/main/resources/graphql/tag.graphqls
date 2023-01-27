@@ -1,0 +1,31 @@
+type Tag {
+	tagId: ID!
+	name: String!
+	color: String!
+	totalMessages: Long
+	createdBy: Employee
+}
+
+input TagInput {
+	employeeId: Long
+	name: String
+	color: String
+}
+
+input ThreadTagInput {
+	employeeId: Long!
+	threadId: Long!
+	tagId : Long!
+}
+
+extend type Mutation {
+	newTag(input: TagInput) : Tag!
+	removeTag(tagId: ID!): Tag!
+	addTagToThread(input: ThreadTagInput) : Tag!
+	removeTagFromThread(input: ThreadTagInput) : Tag!
+}
+
+extend type Query {
+	findAllTags: [Tag]!
+	
+}
